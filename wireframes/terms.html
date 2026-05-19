@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShallWe — 이용약관</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #e8e8e8;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif;
+    }
+    .phone {
+      width: 335px;
+      background: #fff;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(0,0,0,0.12);
+      border: 6px solid #1C1C1C;
+      display: flex;
+      flex-direction: column;
+      min-height: 812px;
+    }
+    .sb {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 13px 22px 8px;
+      font-size: 12px; font-weight: 600; color: #1a1a1a;
+    }
+    .sb-r { display: flex; gap: 5px; font-size: 11px; }
+    .hd {
+      display: flex; align-items: center;
+      padding: 4px 22px 14px;
+    }
+    .hd-back { display: flex; align-items: center; gap: 10px; }
+    .back { font-size: 20px; color: #1a1a1a; cursor: pointer; }
+    .hd-title { font-size: 17px; font-weight: 700; color: #1a1a1a; }
+
+    .bd { flex: 1; padding: 0 18px 28px; overflow-y: auto; }
+    .updated { font-size: 11px; color: #aaa; margin-bottom: 16px; }
+
+    .clause { margin-bottom: 16px; }
+    .clause-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .clause-body { font-size: 12px; color: #999; line-height: 1.6; }
+
+    /* 스크롤 힌트 — 생략 표시 */
+    .scroll-hint {
+      text-align: center;
+      padding: 24px 0;
+      font-size: 12px;
+      color: #ccc;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="sb">
+    <span>9:41</span>
+    <div class="sb-r"><span>●●●</span><span>🔋</span></div>
+  </div>
+
+  <div class="hd">
+    <div class="hd-back">
+      <span class="back">←</span>
+      <span class="hd-title">이용약관</span>
+    </div>
+  </div>
+
+  <div class="bd">
+    <div class="updated">최종 수정일: 2026.05.01</div>
+
+    <div class="clause">
+      <div class="clause-title">제1조 (목적)</div>
+      <div class="clause-body">이 약관은 ShallWe가 제공하는 서비스의 이용 조건 및 절차에 관한 사항을 규정합니다.</div>
+    </div>
+
+    <div class="clause">
+      <div class="clause-title">제2조 (용어의 정의)</div>
+      <div class="clause-body">"서비스"란 챌린지 관리, AI 다이어리, 감정 분석 등의 기능을 의미합니다.</div>
+    </div>
+
+    <div class="clause">
+      <div class="clause-title">제3조 (약관의 효력)</div>
+      <div class="clause-body">본 약관은 서비스 화면에 게시함으로써 효력이 발생합니다.</div>
+    </div>
+
+    <div class="scroll-hint">⋮<br>스크롤하여 더 보기</div>
+  </div>
+</div>
+</body>
+</html>
