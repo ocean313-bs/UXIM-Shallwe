@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShallWe — UI 리디자인 Before / After</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+      background: #F2EFE9;
+      color: #1C1C1C;
+      min-height: 100vh;
+    }
+
+    /* ── 헤더 ── */
+    .page-header {
+      background: #1C1C1C;
+      color: #fff;
+      padding: 48px 40px 40px;
+    }
+    .page-header .badge {
+      display: inline-block;
+      background: #6B9E7A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .page-header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .page-header h1 span { color: #A8C9B0; }
+    .page-header p {
+      font-size: 15px;
+      color: #9A9A9A;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+    .page-header .principle-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #D4D4D4;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-top: 20px;
+      margin-right: 8px;
+    }
+
+    /* ── 섹션 레이아웃 ── */
+    .case-section {
+      padding: 64px 40px;
+      border-bottom: 1px solid #E4E0D9;
+    }
+    .case-section:last-child { border-bottom: none; }
+
+    .case-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .case-number {
+      width: 28px; height: 28px;
+      background: #1C1C1C;
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .case-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .case-desc {
+      font-size: 14px;
+      color: #6B6B6B;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      margin-top: 6px;
+      max-width: 600px;
+    }
+    .case-desc strong { color: #1C1C1C; }
+
+    /* ── Before / After 비교 ── */
+    .comparison {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .side {
+      flex: 1;
+      min-width: 300px;
+    }
+    .side-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .side-label .tag {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .tag-before {
+      background: #FFE8E8;
+      color: #C0392B;
+    }
+    .tag-after {
+      background: #E8F5EE;
+      color: #27AE60;
+    }
+    .side-label .side-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* ── 폰 목업 ── */
+    .phone {
+      width: 320px;
+      min-height: 580px;
+      background: #fff;
+      border-radius: 36px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 20px 60px rgba(0,0,0,0.10);
+      overflow: hidden;
+      border: 6px solid #1C1C1C;
+      position: relative;
+    }
+
+    /* 상태바 */
+    .statusbar {
+      background: #1C1C1C;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .statusbar .time {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .statusbar .icons {
+      font-size: 11px;
+      color: #fff;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    /* 공통 앱 내부 */
+    .app-body {
+      padding: 16px;
+      background: #FAFAF8;
+      min-height: 540px;
+    }
+
+    /* ── 변경사항 리스트 ── */
+    .changes {
+      margin-top: 20px;
+      width: 320px;
+    }
+    .change-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .change-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .dot-bad { background: #E74C3C; }
+    .dot-good { background: #27AE60; }
+    .change-text { font-size: 13px; color: #444; line-height: 1.5; }
+
+    /* ─────────────────────────────────────────
+       CASE 1 — 타이포그래피 위계 (챌린지 카드)
+    ───────────────────────────────────────── */
+
+    /* ── BEFORE: 챌린지 카드 ── */
+    .c1-nav-before {
+      background: #fff;
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #E8E8E8;
+    }
+    .c1-nav-before .nav-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .c1-card-before {
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      padding: 14px;
+      border: 1px solid #E0E0E0;
+    }
+    .c1-card-before .row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .c1-card-before .avatar-before {
+      width: 32px; height: 32px;
+      background: #E0E0E0;
+      border-radius: 50%;
+    }
+    .c1-card-before .username-before { font-size: 14px; color: #333; }
+    .c1-card-before .date-before { font-size: 14px; color: #333; }
+    .c1-card-before .img-placeholder-before {
+      width: 100%; height: 140px;
+      background: #D8D8D8;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #999; font-size: 12px;
+    }
+    .c1-card-before .title-before { font-size: 14px; color: #333; margin-bottom: 6px; }
+    .c1-card-before .desc-before { font-size: 14px; color: #333; margin-bottom: 8px; line-height: 1.5; }
+    .c1-card-before .tag-before-chip { font-size: 14px; color: #333; display: inline-block; margin-bottom: 8px; }
+    .c1-card-before .like-before { font-size: 14px; color: #333; }
+
+    /* ── AFTER: 챌린지 카드 ── */
+    .c1-nav-after {
+      background: #fff;
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #F0EDE8;
+    }
+    .c1-nav-after .nav-logo {
+      font-size: 17px;
+      font-weight: 800;
+      color: #1C1C1C;
+      letter-spacing: -0.03em;
+    }
+    .c1-nav-after .nav-logo span { color: #6B9E7A; }
+    .c1-nav-after .nav-icon { font-size: 18px; }
+
+    .c1-card-after {
+      background: #fff;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .c1-card-after .card-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px 0;
+      gap: 10px;
+    }
+    .c1-card-after .avatar-after {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #A8C9B0, #6B9E7A);
+      border-radius: 50%;
+    }
+    .c1-card-after .user-info { flex: 1; }
+    .c1-card-after .username-after {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1C1C1C;
+    }
+    .c1-card-after .date-after {
+      font-size: 11px;
+      color: #B0B0B0;
+      margin-top: 1px;
+    }
+    .c1-card-after .img-placeholder-after {
+      width: 100%; height: 140px;
+      background: linear-gradient(135deg, #D4E8DA 0%, #C2DBC9 100%);
+      margin: 10px 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .c1-card-after .card-body { padding: 12px 14px 14px; }
+    .c1-card-after .challenge-tag {
+      display: inline-flex;
+      align-items: center;
+      background: #EEF7F1;
+      color: #5A8A68;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+    }
+    .c1-card-after .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1C1C1C;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .c1-card-after .card-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .c1-card-after .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .c1-card-after .like-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #B0B0B0;
+    }
+    .c1-card-after .like-count { font-size: 13px; font-weight: 600; color: #6B6B6B; }
+
+    /* ─────────────────────────────────────────
+       CASE 2 — Empty State (AI 다이어리 빈 상태)
+    ───────────────────────────────────────── */
+
+    /* BEFORE */
+    .c2-tab-before {
+      display: flex;
+      background: #fff;
+      border-bottom: 1px solid #E0E0E0;
+    }
+    .c2-tab-before .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      color: #999;
+      border-bottom: 2px solid transparent;
+    }
+    .c2-tab-before .tab.active {
+      color: #333;
+      border-color: #333;
+    }
+    .c2-empty-before {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .c2-empty-before .empty-icon-before {
+      font-size: 32px;
+      margin-bottom: 12px;
+      opacity: 0.3;
+    }
+    .c2-empty-before .empty-msg-before {
+      font-size: 14px;
+      color: #999;
+    }
+    .c2-write-btn-before {
+      margin: 0 16px;
+      background: #999;
+      color: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* AFTER */
+    .c2-tab-after {
+      display: flex;
+      background: #fff;
+      border-bottom: 1px solid #F0EDE8;
+    }
+    .c2-tab-after .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: #B0B0B0;
+      border-bottom: 2px solid transparent;
+    }
+    .c2-tab-after .tab.active {
+      color: #6B9E7A;
+      font-weight: 700;
+      border-color: #6B9E7A;
+    }
+    .c2-empty-after {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+    .c2-empty-after .empty-illust {
+      width: 110px; height: 110px;
+      background: linear-gradient(135deg, #E8F5EE, #D4EAD9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 44px;
+      margin-bottom: 24px;
+    }
+    .c2-empty-after .empty-headline {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1C1C1C;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .c2-empty-after .empty-sub {
+      font-size: 13px;
+      color: #9A9A9A;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .c2-empty-after .chip-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .c2-empty-after .chip {
+      background: #F0F7F3;
+      color: #5A8A68;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .c2-write-btn-after {
+      background: #6B9E7A;
+      color: #fff;
+      border-radius: 14px;
+      padding: 15px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 16px rgba(107,158,122,0.35);
+    }
+    .c2-skip-text {
+      font-size: 12px;
+      color: #BBBBBB;
+      margin-top: 14px;
+    }
+
+    /* ── 원칙 요약 박스 ── */
+    .principle-box {
+      background: #1C1C1C;
+      color: #fff;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+    .principle-box h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #9A9A9A;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .principle-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .principle-item {
+      flex: 1;
+      min-width: 180px;
+    }
+    .principle-item .pi-label {
+      font-size: 11px;
+      color: #6B9E7A;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .principle-item .pi-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .principle-item .pi-desc {
+      font-size: 13px;
+      color: #9A9A9A;
+      line-height: 1.6;
+    }
+
+    /* ── 구분선 ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 24px 0;
+      color: #C8C4BC;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E4E0D9;
+    }
+
+    /* ── 화살표 ── */
+    .arrow-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 220px;
+      font-size: 28px;
+      color: #BBBBBB;
+    }
+
+    /* ── 푸터 ── */
+    .page-footer {
+      background: #1C1C1C;
+      color: #666;
+      text-align: center;
+      padding: 32px 40px;
+      font-size: 13px;
+    }
+    .page-footer span { color: #6B9E7A; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <!-- ── 헤더 ── -->
+  <div class="page-header">
+    <div class="badge">UXIM 15기 · 5주차 과제</div>
+    <h1>ShallWe<br /><span>UI 리디자인</span> Before / After</h1>
+    <p>같은 정보를 담되, 인지부하를 줄이고 감정적 맥락을 살리는 방향으로 두 개의 화면을 개선했습니다.</p>
+    <div class="principle-chip">타이포그래피 위계</div>
+    <div class="principle-chip">Empty State 디자인</div>
+    <div class="principle-chip">시각적 무게감</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CASE 1 — 타이포그래피 위계 (챌린지 피드 카드)
+  ═══════════════════════════════════════ -->
+  <div class="case-section">
+
+    <div class="case-label">
+      <div class="case-number">1</div>
+      <div class="case-title">타이포그래피 위계 — 챌린지 피드 카드</div>
+    </div>
+    <p class="case-desc">
+      <strong>아쉬운 UI:</strong> 모든 텍스트가 동일한 크기·굵기·색상으로 나열되어 있어, 사용자는 무엇을 먼저 읽어야 할지 판단하는 데 인지 에너지를 소모합니다.<br />
+      <strong>개선 방향:</strong> 제목(크고 굵음) → 본문(중간, 회색) → 메타정보(작고 흐림) 3단계 위계로 시선의 흐름을 자연스럽게 유도합니다.
+      <em style="display:block;margin-top:6px;color:#999;">참고 원칙: Wathan & Schoger, "Refactoring UI" — Visual Hierarchy</em>
+    </p>
+
+    <div class="comparison">
+
+      <!-- BEFORE -->
+      <div class="side">
+        <div class="side-label">
+          <span class="tag tag-before">BEFORE</span>
+          <span class="side-title">모든 텍스트가 같은 무게</span>
+        </div>
+        <div class="phone">
+          <div class="statusbar">
+            <span class="time">9:41</span>
+            <span class="icons">▐▐▐ 🔋</span>
+          </div>
+          <div class="app-body" style="padding:0;">
+            <div class="c1-nav-before">
+              <span class="nav-title">ShallWe</span>
+              <span style="font-size:14px;color:#666;">🔔</span>
+            </div>
+            <div style="padding:14px;">
+              <!-- 카드 1 -->
+              <div class="c1-card-before">
+                <div class="row">
+                  <div class="avatar-before"></div>
+                  <span class="username-before">지은_조용한나날</span>
+                  <span class="date-before" style="margin-left:auto;">3월 31일</span>
+                </div>
+                <div class="img-placeholder-before">사진</div>
+                <div style="height:10px;"></div>
+                <div class="tag-before-chip">#산책 챌린지</div>
+                <div class="title-before">오늘 처음으로 혼자 30분 걸었어요</div>
+                <div class="desc-before">별 것 아닌 것 같은데 막상 나가기까지가 너무 힘들었어요. 그래도 해냈다!</div>
+                <div class="like-before">♡ 좋아요 24개</div>
+              </div>
+              <!-- 카드 2 미리보기 -->
+              <div class="c1-card-before" style="opacity:0.5;">
+                <div class="row">
+                  <div class="avatar-before"></div>
+                  <span class="username-before">민준_다시시작</span>
+                  <span class="date-before" style="margin-left:auto;">3월 30일</span>
+                </div>
+                <div class="title-before">유튜브 끄고 책 5분 읽기 성공</div>
+                <div class="like-before">♡ 좋아요 11개</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="changes">
+          <div class="change-item">
+            <div class="change-dot dot-bad"></div>
+            <div class="change-text">닉네임·날짜·제목·본문이 모두 14px, 같은 회색 → 무엇이 중요한지 파악 불가</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-bad"></div>
+            <div class="change-text">챌린지 태그가 일반 텍스트처럼 나열되어 카테고리 구분이 안 됨</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-bad"></div>
+            <div class="change-text">카드 경계가 얇은 선(border)만으로 구분 → 시각적 분리 약함</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 화살표 -->
+      <div class="arrow-col">→</div>
+
+      <!-- AFTER -->
+      <div class="side">
+        <div class="side-label">
+          <span class="tag tag-after">AFTER</span>
+          <span class="side-title">3단계 타이포그래피 위계 적용</span>
+        </div>
+        <div class="phone">
+          <div class="statusbar">
+            <span class="time">9:41</span>
+            <span class="icons">▐▐▐ 🔋</span>
+          </div>
+          <div class="app-body" style="padding:0;background:#F9F6F2;">
+            <div class="c1-nav-after">
+              <span class="nav-logo">Shall<span>We</span></span>
+              <span class="nav-icon">🔔</span>
+            </div>
+            <div style="padding:14px;">
+              <!-- 카드 1 -->
+              <div class="c1-card-after">
+                <div class="card-header">
+                  <div class="avatar-after"></div>
+                  <div class="user-info">
+                    <div class="username-after">지은_조용한나날</div>  <!-- 굵게 -->
+                    <div class="date-after">3월 31일 · 오늘</div>      <!-- 작고 흐림 -->
+                  </div>
+                </div>
+                <div class="img-placeholder-after">🌿</div>
+                <div class="card-body">
+                  <div class="challenge-tag">🏃 산책 챌린지</div>     <!-- 태그 칩 -->
+                  <div class="card-title">오늘 처음으로 혼자<br />30분 걸었어요</div>  <!-- 크고 굵게 -->
+                  <div class="card-desc">별 것 아닌 것 같은데 막상 나가기까지가 너무 힘들었어요. 그래도 해냈다!</div>  <!-- 작고 회색 -->
+                  <div class="card-footer">
+                    <div class="like-btn">♡ <span class="like-count">24</span></div>
+                    <div style="font-size:12px;color:#D0D0D0;">·</div>
+                    <div style="font-size:12px;color:#C0C0C0;">D-77</div>
+                  </div>
+                </div>
+              </div>
+              <!-- 카드 2 미리보기 -->
+              <div class="c1-card-after" style="opacity:0.55;">
+                <div class="card-header">
+                  <div class="avatar-after"></div>
+                  <div class="user-info">
+                    <div class="username-after">민준_다시시작</div>
+                    <div class="date-after">3월 30일</div>
+                  </div>
+                </div>
+                <div class="card-body" style="padding-top:8px;">
+                  <div class="challenge-tag">📚 독서 챌린지</div>
+                  <div class="card-title">유튜브 끄고 책 5분 읽기 성공</div>
+                  <div class="card-footer"><div class="like-btn">♡ <span class="like-count">11</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="changes">
+          <div class="change-item">
+            <div class="change-dot dot-good"></div>
+            <div class="change-text"><strong>제목 16px Bold</strong> → <strong>본문 13px 회색</strong> → <strong>메타 11px 흐림</strong> 3단계 위계로 시선 흐름 설계</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-good"></div>
+            <div class="change-text">챌린지 태그를 초록 칩(pill)으로 분리 → 카테고리가 한눈에 파악됨</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-good"></div>
+            <div class="change-text">카드에 그림자+둥근 모서리 → 시각적 분리, 심리적 안정감 제공</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.comparison -->
+
+  </div><!-- /case 1 -->
+
+
+  <!-- ═══════════════════════════════════════
+       CASE 2 — Empty State (AI 다이어리 빈 상태)
+  ═══════════════════════════════════════ -->
+  <div class="case-section">
+
+    <div class="case-label">
+      <div class="case-number">2</div>
+      <div class="case-title">Empty State 디자인 — AI 다이어리 첫 화면</div>
+    </div>
+    <p class="case-desc">
+      <strong>아쉬운 UI:</strong> 아무것도 없을 때 그냥 빈 화면과 회색 텍스트만 표시합니다. 무기력 청년에게 "아무것도 없다"는 느낌은 오히려 시작을 더 어렵게 만들 수 있습니다.<br />
+      <strong>개선 방향:</strong> 빈 상태를 '아직 시작 안 한 상태'가 아닌 <em>'오늘 시작할 수 있는 기회'</em>로 재프레이밍합니다. 일러스트·격려 문구·낮은 진입점 버튼으로 심리적 장벽을 낮춥니다.
+      <em style="display:block;margin-top:6px;color:#999;">참고 사례: Duolingo 빈 상태, Finch 첫 화면 — Emotional Design</em>
+    </p>
+
+    <div class="comparison">
+
+      <!-- BEFORE -->
+      <div class="side">
+        <div class="side-label">
+          <span class="tag tag-before">BEFORE</span>
+          <span class="side-title">빈 화면 + 회색 안내 텍스트</span>
+        </div>
+        <div class="phone">
+          <div class="statusbar">
+            <span class="time">9:41</span>
+            <span class="icons">▐▐▐ 🔋</span>
+          </div>
+          <div class="app-body" style="padding:0;">
+            <div class="c2-tab-before">
+              <div class="tab">홈</div>
+              <div class="tab active">다이어리</div>
+              <div class="tab">마이</div>
+            </div>
+            <div class="c2-empty-before">
+              <div class="empty-icon-before">📓</div>
+              <div class="empty-msg-before">아직 작성한 일기가 없습니다.<br />일기를 작성해보세요.</div>
+            </div>
+            <div class="c2-write-btn-before">+ 일기 작성</div>
+          </div>
+        </div>
+
+        <div class="changes">
+          <div class="change-item">
+            <div class="change-dot dot-bad"></div>
+            <div class="change-text">"없습니다" — 결핍을 강조하는 표현, 무기력 청년에게 오히려 압박</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-bad"></div>
+            <div class="change-text">회색 버튼 + 딱딱한 "+" 아이콘 → 클릭 욕구 없음</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-bad"></div>
+            <div class="change-text">빈 공간이 많아 허전함 → 시작을 망설이게 만드는 레이아웃</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 화살표 -->
+      <div class="arrow-col">→</div>
+
+      <!-- AFTER -->
+      <div class="side">
+        <div class="side-label">
+          <span class="tag tag-after">AFTER</span>
+          <span class="side-title">재프레이밍 + 감정적 Empty State</span>
+        </div>
+        <div class="phone">
+          <div class="statusbar">
+            <span class="time">9:41</span>
+            <span class="icons">▐▐▐ 🔋</span>
+          </div>
+          <div class="app-body" style="padding:0;background:#F9F6F2;">
+            <div class="c2-tab-after">
+              <div class="tab">홈</div>
+              <div class="tab active">다이어리</div>
+              <div class="tab">마이</div>
+            </div>
+            <div class="c2-empty-after">
+              <div class="empty-illust">🌱</div>
+              <div class="empty-headline">오늘 하루,<br />어떤 감정이었나요?</div>
+              <div class="empty-sub">짧아도 괜찮아요.<br />오늘 느낀 것 하나만 적어볼까요?</div>
+              <div class="chip-row">
+                <div class="chip">😮‍💨 조금 지쳤어요</div>
+                <div class="chip">🙂 그럭저럭요</div>
+                <div class="chip">✨ 뭔가 해냈어요</div>
+              </div>
+              <div class="c2-write-btn-after">오늘 일기 시작하기</div>
+              <div class="c2-skip-text">지금은 쉴게요 (내일 다시 올게요)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="changes">
+          <div class="change-item">
+            <div class="change-dot dot-good"></div>
+            <div class="change-text">"없습니다" → <strong>"오늘 하루, 어떤 감정이었나요?"</strong> — 결핍이 아닌 대화 시작으로 재프레이밍</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-good"></div>
+            <div class="change-text">감정 칩 3개 제공 → 빈 칸 작성 부담 없이 선택으로 시작 가능, 진입 장벽 ↓</div>
+          </div>
+          <div class="change-item">
+            <div class="change-dot dot-good"></div>
+            <div class="change-text">"지금은 쉴게요" 링크 → 강요 없는 UX, 미사용을 실패로 느끼지 않도록 설계</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.comparison -->
+
+    <!-- 원칙 요약 박스 -->
+    <div class="principle-box">
+      <h3>핵심 디자인 원칙 요약</h3>
+      <div class="principle-row">
+        <div class="principle-item">
+          <div class="pi-label">Case 1</div>
+          <div class="pi-title">타이포그래피 위계</div>
+          <div class="pi-desc">정보를 Bold → Regular → Light 3단계로 나누면 인지부하가 줄고 브랜드 신뢰도가 올라간다. (Refactoring UI, Wathan & Schoger)</div>
+        </div>
+        <div class="principle-item">
+          <div class="pi-label">Case 2</div>
+          <div class="pi-title">감정적 Empty State</div>
+          <div class="pi-desc">빈 화면을 결핍이 아닌 기회로 전환한다. ShallWe의 "무압박 UX" 철학과 직결되는 원칙 — 미완수를 실패로 표현하지 않는다.</div>
+        </div>
+        <div class="principle-item">
+          <div class="pi-label">공통</div>
+          <div class="pi-title">ShallWe UX 방향성</div>
+          <div class="pi-desc">두 개선 모두 심리적 장벽을 낮추고, 작은 행동의 시작을 부드럽게 유도한다는 서비스 핵심 가치를 UI 레벨에서 구현한다.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /case 2 -->
+
+  <!-- 푸터 -->
+  <div class="page-footer">
+    <span>ShallWe</span> · UXIM 15기 · 레디액션 팀 · 5주차 UI 리디자인 과제
+  </div>
+
+</body>
+</html>

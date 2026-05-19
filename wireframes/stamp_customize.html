@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=375" />
+  <title>ShallWe — 스탬프 꾸미기</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif;
+    }
+    .phone {
+      width: 375px;
+      min-height: 812px;
+      background: #fff;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 24px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .status-right { display: flex; gap: 6px; font-size: 11px; }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 24px 16px;
+    }
+    .back-btn { font-size: 20px; color: #1a1a1a; cursor: pointer; }
+    .header-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+
+    .scroll-area { flex: 1; overflow-y: auto; padding: 0 20px 32px; }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+
+    /* 스탬프 그리드 */
+    .stamp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stamp-card {
+      background: #f7f9f7;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      position: relative;
+    }
+    .stamp-card.active {
+      border-color: #4caf7d;
+      background: #edf7f1;
+    }
+    .stamp-emoji { font-size: 36px; }
+    .stamp-name { font-size: 13px; font-weight: 500; color: #555; }
+    .check-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      background: #4caf7d;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* 감정 색상 */
+    .color-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
+    .color-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .color-row:last-child { border-bottom: none; }
+    .color-left { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #1a1a1a; }
+    .color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+    }
+
+    /* 저장 버튼 */
+    .save-btn {
+      width: 100%;
+      padding: 16px;
+      background: #4caf7d;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="status-right"><span>●●●</span><span>🔋</span></div>
+  </div>
+
+  <div class="header">
+    <span class="back-btn">←</span>
+    <span class="header-title">스탬프 꾸미기</span>
+  </div>
+
+  <div class="scroll-area">
+
+    <div class="section-title">완수 스탬프 선택</div>
+    <div class="section-sub">챌린지 완수일에 캘린더에 표시됩니다</div>
+
+    <div class="stamp-grid">
+      <div class="stamp-card active">
+        <div class="check-badge">✓</div>
+        <div class="stamp-emoji">🍀</div>
+        <div class="stamp-name">네잎클로버</div>
+      </div>
+      <div class="stamp-card">
+        <div class="stamp-emoji">⭐</div>
+        <div class="stamp-name">별</div>
+      </div>
+      <div class="stamp-card">
+        <div class="stamp-emoji">🌸</div>
+        <div class="stamp-name">꽃잎</div>
+      </div>
+      <div class="stamp-card">
+        <div class="stamp-emoji">🏅</div>
+        <div class="stamp-name">메달</div>
+      </div>
+    </div>
+
+    <div class="section-title">감정 색상 설정</div>
+    <div class="section-sub">캘린더에서 날짜별 감정을 색으로 구분합니다</div>
+
+    <div class="color-list">
+      <div class="color-row">
+        <div class="color-left">
+          <div class="color-dot" style="background:#f9c74f;"></div>
+          😊 기쁨
+        </div>
+        <div class="color-dot" style="background:#f9c74f; border: 2px solid #e0e0e0;"></div>
+      </div>
+      <div class="color-row">
+        <div class="color-left">
+          <div class="color-dot" style="background:#90be6d;"></div>
+          😐 보통
+        </div>
+        <div class="color-dot" style="background:#90be6d; border: 2px solid #e0e0e0;"></div>
+      </div>
+      <div class="color-row">
+        <div class="color-left">
+          <div class="color-dot" style="background:#4d8ef0;"></div>
+          😔 우울
+        </div>
+        <div class="color-dot" style="background:#4d8ef0; border: 2px solid #e0e0e0;"></div>
+      </div>
+      <div class="color-row">
+        <div class="color-left">
+          <div class="color-dot" style="background:#9b72cf;"></div>
+          😰 불안
+        </div>
+        <div class="color-dot" style="background:#9b72cf; border: 2px solid #e0e0e0;"></div>
+      </div>
+      <div class="color-row">
+        <div class="color-left">
+          <div class="color-dot" style="background:#f4533a;"></div>
+          😤 짜증
+        </div>
+        <div class="color-dot" style="background:#f4533a; border: 2px solid #e0e0e0;"></div>
+      </div>
+    </div>
+
+    <button class="save-btn">저장하기</button>
+
+  </div>
+</div>
+</body>
+</html>

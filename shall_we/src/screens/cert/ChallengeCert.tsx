@@ -1,0 +1,166 @@
+/**
+ * ChallengeCert — 챌린지 인증 업로드 (Figma 40000611:3866).
+ *
+ * Photo upload (blob URL with cleanup), challenge chip selector
+ * (0/1/2+ branching), text, public/private radio, upload.
+ */
+
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Camera } from 'lucide-react';
+import { useApp } from '@/store/AppContext';
+import { Button } from '@/components/ui/Button';
+import { Textarea } from '@/components/ui/Textarea';
+import { Chip } from '@/components/ui/Chip';
+import { RadioOption } from '@/components/ui/RadioOption';
+import { BackHeader } from '@/components/layout/BackHeader';
+import { uuid } from '@/utils/id';
+import { notify } from '@/utils/notify';
+
+export default function ChallengeCert() {
+  const navigate = useNavigate();
+  const { state, dispatch } = useApp();
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const [photo, setPhoto] = useState<{ file: File; url: string } | null>(null);
+  const [challengeId, setChallengeId] = useState<string | null>(
+    state.challenges.length === 1 ? state.challenges[0].id : null,
+  );
+  const [text, setText] = useState('');
+  const [isPublic, setIsPublic] = useState(true);
+
+  useEffect(() => {
+    return () => {
+      if (photo?.url) URL.revokeObjectURL(photo.url);
+    };
+  }, [photo]);
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      notify.pickerCanceled();
+      return;
+    }
+    if (photo?.url) URL.revokeObjectURL(photo.url);
+    setPhoto({ file, url: URL.createObjectURL(file) });
+  };
+
+  const canUpload =
+    !!photo && !!challengeId && state.challenges.length > 0 && text.trim().length > 0;
+
+  const handleUpload = () => {
+    if (!canUpload) return;
+    const challenge = state.challenges.find((c) => c.id === challengeId);
+    if (!challenge) return;
+
+    dispatch({
+      type: 'CERTIFY',
+      payload: {
+        id: uuid(),
+        challengeId: challenge.id,
+        challengeTitle: challenge.title,
+        photoUrl: photo!.url,
+        text: text.trim(),
+        isPublic,
+        date: new Date().toISOString(),
+        authorNickname: state.user.nickname || '익명',
+      },
+    });
+    notify.certified();
+    navigate('/challenge');
+  };
+
+  return (
+    <div className="min-h-screen pb-10 bg-bg-app">
+      <BackHeader title="챌린지 인증" sticky />
+
+      <div className="px-5 mt-5 space-y-6">
+        {/* Photo */}
+        <section className="space-y-3">
+          <h2 className="text-subtitle-16 text-ink">사진 찍기</h2>
+          <div
+            className="aspect-square bg-white rounded-xl overflow-hidden flex items-center justify-center border border-gray-soft cursor-pointer active:scale-[0.99] transition-transform"
+            onClick={() => fileRef.current?.click()}
+          >
+            {photo ? (
+              <img src={photo.url} alt="" className="w-full h-full object-cover" />
+            ) : (
+              <div className="flex flex-col items-center gap-2 text-gray">
+                <Camera size={36} strokeWidth={1.5} />
+                <span className="text-body-12">탭해서 사진 선택</span>
+              </div>
+            )}
+          </div>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={handleFile}
+          />
+          <button
+            onClick={() => fileRef.current?.click()}
+            className="text-body-14 text-primary font-medium active:scale-95 transition-transform"
+          >
+            갤러리에서 선택
+          </button>
+        </section>
+
+        {/* Challenge selector */}
+        {state.challenges.length > 0 && (
+          <section className="space-y-3">
+            <h2 className="text-subtitle-16 text-ink">진행 중인 챌린지</h2>
+            {state.challenges.length === 1 ? (
+              <p className="text-body-12 text-gray pl-1">
+                ✓ {state.challenges[0].title}
+              </p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {state.challenges.map((c) => (
+                  <Chip
+                    key={c.id}
+                    label={c.title}
+                    selected={challengeId === c.id}
+                    onClick={() => setChallengeId(c.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Text */}
+        <section className="space-y-3">
+          <h2 className="text-subtitle-16 text-ink">글 작성</h2>
+          <Textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="오늘의 챌린지를 어떻게 완수했나요?"
+            maxLength={1000}
+          />
+        </section>
+
+        {/* Privacy */}
+        <section className="space-y-3">
+          <h2 className="text-subtitle-16 text-ink">공개 설정</h2>
+          <div className="grid grid-cols-2 gap-2">
+            <RadioOption
+              label="공개"
+              selected={isPublic}
+              onClick={() => setIsPublic(true)}
+            />
+            <RadioOption
+              label="비공개"
+              selected={!isPublic}
+              onClick={() => setIsPublic(false)}
+            />
+          </div>
+        </section>
+
+        <Button onClick={handleUpload} disabled={!canUpload}>
+          업로드
+        </Button>
+      </div>
+    </div>
+  );
+}

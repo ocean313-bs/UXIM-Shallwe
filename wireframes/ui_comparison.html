@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShallWe — UI 리디자인 Before / After</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+      background: #F0EDE8;
+      color: #1C1C1C;
+    }
+
+    /* ── 페이지 헤더 ── */
+    .page-header {
+      background: #1C1C1C;
+      color: #fff;
+      padding: 52px 48px 44px;
+    }
+    .badge {
+      display: inline-block;
+      background: #6B9E7A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .page-header h1 {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .page-header h1 em { color: #A8C9B0; font-style: normal; }
+    .page-header p { font-size: 14px; color: #888; line-height: 1.7; max-width: 560px; }
+
+    /* ── 섹션 ── */
+    .section {
+      padding: 60px 48px;
+      border-bottom: 1px solid #E4E0D9;
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .num {
+      width: 28px; height: 28px;
+      background: #1C1C1C;
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .section-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+    .section-desc {
+      font-size: 14px; color: #666; line-height: 1.75;
+      margin: 8px 0 40px;
+      max-width: 640px;
+    }
+    .section-desc strong { color: #1C1C1C; font-weight: 700; }
+
+    /* ── 비교 레이아웃 ── */
+    .compare {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .compare-side { flex: 1; min-width: 280px; }
+    .side-head {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 18px;
+    }
+    .tag {
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .tag-good  { background: #E3F4EA; color: #27AE60; }
+    .tag-bad   { background: #FDEAEA; color: #C0392B; }
+    .tag-after { background: #E3F4EA; color: #27AE60; }
+    .tag-before{ background: #FDEAEA; color: #C0392B; }
+    .side-name { font-size: 15px; font-weight: 600; color: #1C1C1C; }
+
+    /* ── 폰 래퍼 ── */
+    .phone-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .phone {
+      width: 335px;
+      background: #fff;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(0,0,0,0.12);
+      border: 6px solid #1C1C1C;
+    }
+
+    /* 상태바 */
+    .sb {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 13px 22px 8px;
+      font-size: 12px; font-weight: 600; color: #1a1a1a;
+    }
+    .sb-r { display: flex; gap: 5px; font-size: 11px; }
+
+    /* ── 주석 목록 ── */
+    .notes { margin-top: 20px; }
+    .note {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      margin-top: 5px; flex-shrink: 0;
+    }
+    .dot-g { background: #27AE60; }
+    .dot-r { background: #E74C3C; }
+    .note-txt { font-size: 13px; color: #444; line-height: 1.55; }
+    .note-txt strong { color: #1C1C1C; }
+
+    /* ── 화살표 ── */
+    .arrow-col {
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 200px;
+      font-size: 26px; color: #C0C0C0;
+    }
+
+    /* ── 원칙 박스 ── */
+    .principle-box {
+      background: #1C1C1C; color: #fff;
+      border-radius: 18px; padding: 28px 32px;
+      margin-top: 48px;
+    }
+    .principle-box h3 {
+      font-size: 11px; font-weight: 700; color: #888;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .pr-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .pr-item { flex: 1; min-width: 160px; }
+    .pr-label { font-size: 11px; color: #6B9E7A; font-weight: 700; margin-bottom: 4px; }
+    .pr-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .pr-desc { font-size: 13px; color: #888; line-height: 1.6; }
+
+    /* ── 푸터 ── */
+    .footer {
+      background: #1C1C1C; color: #555;
+      text-align: center; padding: 28px;
+      font-size: 13px;
+    }
+    .footer span { color: #6B9E7A; font-weight: 700; }
+
+    /* ════════════════════════════════
+       알림 설정 화면 스타일
+    ════════════════════════════════ */
+    .ns-header {
+      display: flex; align-items: center;
+      gap: 10px; padding: 4px 22px 14px;
+    }
+    .ns-back { font-size: 20px; color: #1a1a1a; }
+    .ns-title { font-size: 17px; font-weight: 700; color: #1a1a1a; }
+
+    .ns-body { padding: 0 18px 28px; }
+
+    .ns-section-label {
+      font-size: 11px; font-weight: 700; color: #999;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin: 18px 0 8px;
+    }
+    .ns-section-label:first-child { margin-top: 0; }
+
+    .ns-card {
+      background: #f7f9f7;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .ns-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px;
+    }
+    .ns-item + .ns-item { border-top: 1px solid #eee; }
+    .ns-left { display: flex; align-items: flex-start; gap: 10px; }
+    .ns-icon { font-size: 18px; margin-top: 1px; }
+    .ns-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+    .ns-desc { font-size: 12px; color: #aaa; line-height: 1.4; }
+
+    .ns-toggle {
+      width: 44px; height: 26px;
+      border-radius: 13px; background: #e0e0e0;
+      position: relative; flex-shrink: 0;
+    }
+    .ns-toggle.on { background: #4caf7d; }
+    .ns-toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      background: #fff; border-radius: 50%;
+      top: 3px; left: 3px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .ns-toggle.on::after { left: 21px; }
+
+    .ns-time-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-top: 1px solid #eee;
+    }
+    .ns-time-label { font-size: 13px; color: #555; }
+    .ns-time-val { font-size: 13px; font-weight: 600; color: #4caf7d; }
+
+    .ns-infobox {
+      background: #edf7f1; border-radius: 12px;
+      padding: 13px 14px; display: flex; gap: 8px;
+      align-items: flex-start; margin-top: 6px;
+    }
+    .ns-infobox-icon { font-size: 15px; flex-shrink: 0; }
+    .ns-infobox-text { font-size: 12px; color: #4caf7d; line-height: 1.5; font-weight: 500; }
+
+    /* 주석 강조선 */
+    .anno-line {
+      position: absolute;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .anno-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%; background: #27AE60; flex-shrink: 0;
+    }
+    .anno-label {
+      background: #27AE60; color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* ════════════════════════════════
+       마이페이지 프로필 카드 (공통)
+    ════════════════════════════════ */
+    .mp-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 22px 14px;
+    }
+    .mp-title { font-size: 17px; font-weight: 700; color: #1a1a1a; }
+    .mp-setting { font-size: 18px; color: #555; }
+
+    .mp-body { padding: 0 18px; }
+
+    /* BEFORE 프로필 카드 */
+    .mp-card {
+      background: #f7f9f7; border-radius: 18px;
+      padding: 18px; margin-bottom: 14px;
+    }
+    .mp-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .mp-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #d4ead4;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+    .mp-name { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 2px; }
+    .mp-sub  { font-size: 12px; color: #888; }
+
+    .mp-divider { height: 1px; background: #e8e8e8; margin: 12px 0; }
+
+    .mp-cl-label { font-size: 12px; color: #888; margin-bottom: 6px; }
+    .mp-cl-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 6px;
+    }
+    .mp-cl-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+
+    /* BEFORE: 부정적 프레이밍 */
+    .mp-cl-meta-bad { font-size: 12px; color: #4caf7d; font-weight: 600; }
+
+    /* AFTER: 긍정적 프레이밍 */
+    .mp-cl-meta-good { font-size: 12px; color: #4caf7d; font-weight: 600; }
+
+    .mp-progress-wrap {
+      height: 8px; background: #e5e5e5;
+      border-radius: 99px; overflow: hidden; margin-bottom: 12px;
+    }
+    .mp-progress-fill {
+      height: 100%; width: 33%;
+      background: #4caf7d; border-radius: 99px;
+    }
+    .mp-pt-row { display: flex; justify-content: space-between; align-items: center; }
+    .mp-pt-label { font-size: 12px; color: #888; }
+    .mp-pt-val { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+    .mp-pt-unit { font-size: 12px; font-weight: 600; color: #4caf7d; margin-left: 2px; }
+
+    /* AFTER 전용 스타일 */
+    .mp-achieve-banner {
+      background: linear-gradient(135deg, #edf7f1, #d4ead4);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .mp-achieve-left {}
+    .mp-achieve-num {
+      font-size: 22px; font-weight: 800;
+      color: #1a1a1a; letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .mp-achieve-num span { font-size: 13px; font-weight: 600; color: #4caf7d; margin-left: 2px; }
+    .mp-achieve-sub { font-size: 11px; color: #6a9e78; margin-top: 2px; }
+    .mp-achieve-emoji { font-size: 28px; }
+
+    .mp-progress-label-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 4px;
+    }
+    .mp-progress-label-pos { font-size: 12px; font-weight: 600; color: #4caf7d; }
+    .mp-progress-label-rem { font-size: 11px; color: #bbb; }
+
+    /* 아쉬운 UI 강조 표시 */
+    .bad-highlight {
+      border: 2px dashed #E74C3C;
+      border-radius: 8px;
+      position: relative;
+    }
+    .bad-highlight::after {
+      content: '⚠ 부정적 프레이밍';
+      position: absolute;
+      top: -11px; right: 8px;
+      background: #E74C3C;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 8px;
+    }
+
+    /* 마이페이지 나머지 (섹션 카드, 메뉴) */
+    .mp-section-card {
+      background: #f7f9f7; border-radius: 16px;
+      padding: 14px 16px; margin-bottom: 10px;
+    }
+    .mp-sc-row { display: flex; justify-content: space-between; align-items: center; }
+    .mp-sc-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600; color: #1a1a1a;
+    }
+    .mp-toggle-grp { display: flex; gap: 6px; margin-top: 10px; }
+    .mp-toggle-btn {
+      flex: 1; padding: 7px;
+      border-radius: 8px; border: 1.5px solid #e0e0e0;
+      background: #fff; font-size: 12px; color: #888;
+      text-align: center;
+    }
+    .mp-toggle-btn.on {
+      border-color: #4caf7d; background: #edf7f1;
+      color: #4caf7d; font-weight: 700;
+    }
+    .mp-menu-card {
+      background: #f7f9f7; border-radius: 16px;
+      overflow: hidden; margin-bottom: 10px;
+    }
+    .mp-menu-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; font-size: 13px; font-weight: 500; color: #1a1a1a;
+    }
+    .mp-menu-item + .mp-menu-item { border-top: 1px solid #eee; }
+    .mp-menu-left { display: flex; align-items: center; gap: 8px; }
+    .mp-arrow { font-size: 14px; color: #bbb; }
+
+    /* 하단 네비 */
+    .bottom-nav {
+      height: 72px; border-top: 1px solid #f0f0f0;
+      display: flex; align-items: center;
+      justify-content: space-around;
+      padding: 0 10px 12px;
+      background: #fff;
+    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+    .nav-ico { font-size: 22px; opacity: 0.4; }
+    .nav-ico.active { opacity: 1; }
+    .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf7d; }
+    .nav-dot.h { visibility: hidden; }
+  </style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<div class="page-header">
+  <div class="badge">UXIM 15기 · 5주차 과제 · ShallWe</div>
+  <h1>내가 만든 화면으로 보는<br /><em>좋은 UI vs 아쉬운 UI</em></h1>
+  <p>직접 제작한 와이어프레임을 분석해, 잘 된 부분과 개선할 부분을 찾고 리디자인을 적용했습니다.</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CASE 1 — 좋은 UI : 알림 설정
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="num">1</div>
+    <div class="section-title">좋은 UI — 알림 설정 화면</div>
+  </div>
+  <p class="section-desc">
+    <strong>왜 잘 됐나요?</strong> 정보를 세 개의 섹션("챌린지 / AI 다이어리 / AI 감정 알림")으로 명확히 그룹화하고, 항목 이름(14px Bold)→설명(12px 회색)의 2단계 타이포그래피 위계를 적용했습니다. 하단 info-box는 핵심 정보를 방해 없이 전달합니다.
+  </p>
+
+  <div class="compare">
+    <div class="compare-side">
+      <div class="side-head">
+        <span class="tag tag-good">GOOD UI</span>
+        <span class="side-name">섹션 그룹화 + 타이포 위계</span>
+      </div>
+      <div class="phone">
+        <!-- 상태바 -->
+        <div class="sb">
+          <span>9:41</span>
+          <div class="sb-r"><span>●●●</span><span>🔋</span></div>
+        </div>
+        <!-- 헤더 -->
+        <div class="ns-header">
+          <span class="ns-back">←</span>
+          <span class="ns-title">알림 설정</span>
+        </div>
+        <!-- 본문 -->
+        <div class="ns-body">
+          <!-- 챌린지 -->
+          <div class="ns-section-label">챌린지</div>
+          <div class="ns-card">
+            <div class="ns-item">
+              <div class="ns-left">
+                <div class="ns-icon">🍀</div>
+                <div>
+                  <div class="ns-name">챌린지 리마인더</div>
+                  <div class="ns-desc">당일 인증 전에 알려드려요</div>
+                </div>
+              </div>
+              <div class="ns-toggle on"></div>
+            </div>
+            <div class="ns-time-row">
+              <span class="ns-time-label">알림 시간</span>
+              <span class="ns-time-val">오전 9:00 ›</span>
+            </div>
+          </div>
+
+          <!-- AI 다이어리 -->
+          <div class="ns-section-label">AI 다이어리</div>
+          <div class="ns-card">
+            <div class="ns-item">
+              <div class="ns-left">
+                <div class="ns-icon">📔</div>
+                <div>
+                  <div class="ns-name">다이어리 작성 알림</div>
+                  <div class="ns-desc">당일 기록이 없을 때 알려드려요</div>
+                </div>
+              </div>
+              <div class="ns-toggle on"></div>
+            </div>
+            <div class="ns-time-row">
+              <span class="ns-time-label">알림 시간</span>
+              <span class="ns-time-val">오후 9:00 ›</span>
+            </div>
+          </div>
+
+          <!-- AI 감정 알림 -->
+          <div class="ns-section-label">AI 감정 알림</div>
+          <div class="ns-card">
+            <div class="ns-item">
+              <div class="ns-left">
+                <div class="ns-icon">🤖</div>
+                <div>
+                  <div class="ns-name">감정 감지 알림</div>
+                  <div class="ns-desc">다이어리 저장 후 AI가 감정을<br>분석하면 알려드려요</div>
+                </div>
+              </div>
+              <div class="ns-toggle on"></div>
+            </div>
+          </div>
+
+          <!-- 인포박스 -->
+          <div class="ns-infobox">
+            <div class="ns-infobox-icon">💚</div>
+            <div class="ns-infobox-text">
+              AI 감정 알림은 부정적인 감정이 감지될 때<br>
+              "50% 완수했고, 반밖에 안 남았어!" 같은<br>
+              따뜻한 메시지를 보내드려요
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt"><strong>섹션 레이블</strong>(챌린지 / AI 다이어리 / AI 감정 알림)로 정보를 3개 그룹으로 나눠 인지부하 감소</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt">항목 이름 <strong>14px Bold</strong> → 설명 <strong>12px 회색</strong> → 2단계 타이포 위계로 시선 흐름 설계</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt">하단 <strong>info-box</strong>로 AI 알림 맥락을 화면 흐름을 방해하지 않고 자연스럽게 전달</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt">iOS 토글 패턴 → 사용자가 학습 없이 즉시 이해하는 친숙한 UI 패턴 활용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CASE 2 — 아쉬운 UI + 개선안 : 마이페이지
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="num">2</div>
+    <div class="section-title">아쉬운 UI → 개선안 — 마이페이지 챌린지 현황</div>
+  </div>
+  <p class="section-desc">
+    <strong>어떤 부분이 아쉬운가요?</strong> 프로필 카드의 챌린지 현황에 "D-67 · 완수 33%"가 표시됩니다. 이는 <em>남은 일수</em>와 <em>낮은 달성률</em>을 동시에 강조해 "아직 많이 남았다"는 인상을 줍니다. ShallWe의 핵심 UX 철학("무압박, 실패를 실패로 표현하지 않음")과 정면으로 충돌합니다.<br/>
+    <strong>개선 방향:</strong> "D-67" → "벌써 33일!" 로 성취 중심 재프레이밍. 프로그레스 바 레이블도 완료 중심으로 변경.
+  </p>
+
+  <div class="compare">
+
+    <!-- BEFORE -->
+    <div class="compare-side">
+      <div class="side-head">
+        <span class="tag tag-before">BEFORE</span>
+        <span class="side-name">남은 것 강조 — 무압박 UX와 충돌</span>
+      </div>
+      <div class="phone">
+        <div class="sb">
+          <span>9:41</span>
+          <div class="sb-r"><span>●●●</span><span>🔋</span></div>
+        </div>
+        <div class="mp-header">
+          <span class="mp-title">마이페이지</span>
+          <span class="mp-setting">⚙</span>
+        </div>
+        <div class="mp-body">
+
+          <!-- 프로필 카드 -->
+          <div class="mp-card">
+            <div class="mp-top">
+              <div class="mp-avatar">🌿</div>
+              <div>
+                <div class="mp-name">닉네임님</div>
+                <div class="mp-sub">오늘도 한 걸음 나아가고 있어요</div>
+              </div>
+            </div>
+            <div class="mp-divider"></div>
+            <div class="mp-cl-label">100일 챌린지</div>
+            <div class="mp-cl-row">
+              <span class="mp-cl-name">🌱 산책 챌린지</span>
+              <!-- 아쉬운 부분 강조 -->
+              <span class="mp-cl-meta-bad bad-highlight" style="padding:2px 6px;">D-67 · 완수 33%</span>
+            </div>
+            <div class="mp-progress-wrap">
+              <div class="mp-progress-fill"></div>
+            </div>
+            <div class="mp-pt-row">
+              <span class="mp-pt-label">누적 포인트</span>
+              <span class="mp-pt-val">240<span class="mp-pt-unit">P</span></span>
+            </div>
+          </div>
+
+          <!-- AI 말투 -->
+          <div class="mp-section-card">
+            <div class="mp-sc-row">
+              <div class="mp-sc-label">🤖 AI 말투 설정</div>
+            </div>
+            <div class="mp-toggle-grp">
+              <div class="mp-toggle-btn on">● 제안형</div>
+              <div class="mp-toggle-btn">○ 대화형</div>
+            </div>
+          </div>
+
+          <!-- 메뉴 -->
+          <div class="mp-menu-card">
+            <div class="mp-menu-item">
+              <div class="mp-menu-left"><span>🎨</span> 스탬프 꾸미기</div>
+              <span class="mp-arrow">›</span>
+            </div>
+            <div class="mp-menu-item">
+              <div class="mp-menu-left"><span>💰</span> 포인트 내역</div>
+              <span class="mp-arrow">›</span>
+            </div>
+            <div class="mp-menu-item">
+              <div class="mp-menu-left"><span>🔔</span> 알림 설정</div>
+              <span class="mp-arrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item"><span class="nav-ico">📔</span><div class="nav-dot h"></div></div>
+          <div class="nav-item"><span class="nav-ico">🏠</span><div class="nav-dot h"></div></div>
+          <div class="nav-item"><span class="nav-ico active">👤</span><div class="nav-dot"></div></div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="note">
+          <div class="dot dot-r"></div>
+          <div class="note-txt"><strong>"D-67"</strong> — 남은 67일을 먼저 보여줌. 무기력 청년에게 "아직 멀었다"는 압박감 전달</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-r"></div>
+          <div class="note-txt"><strong>"완수 33%"</strong> — 프로그레스 바가 1/3만 채워진 채 "많이 못 했다"는 시각적 인상 강화</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-r"></div>
+          <div class="note-txt">ShallWe UX 원칙("이미 한 것에 집중")과 정면 충돌 — 카피와 UI 철학이 불일치</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 화살표 -->
+    <div class="arrow-col">→</div>
+
+    <!-- AFTER -->
+    <div class="compare-side">
+      <div class="side-head">
+        <span class="tag tag-after">AFTER</span>
+        <span class="side-name">성취 중심 재프레이밍</span>
+      </div>
+      <div class="phone">
+        <div class="sb">
+          <span>9:41</span>
+          <div class="sb-r"><span>●●●</span><span>🔋</span></div>
+        </div>
+        <div class="mp-header">
+          <span class="mp-title">마이페이지</span>
+          <span class="mp-setting">⚙</span>
+        </div>
+        <div class="mp-body">
+
+          <!-- 개선된 프로필 카드 -->
+          <div class="mp-card">
+            <div class="mp-top">
+              <div class="mp-avatar">🌿</div>
+              <div>
+                <div class="mp-name">닉네임님</div>
+                <div class="mp-sub">오늘도 한 걸음 나아가고 있어요</div>
+              </div>
+            </div>
+            <div class="mp-divider"></div>
+
+            <div class="mp-cl-label">100일 챌린지 · 🌱 산책</div>
+
+            <!-- 성취 배너 (핵심 개선) -->
+            <div class="mp-achieve-banner">
+              <div class="mp-achieve-left">
+                <div class="mp-achieve-num">33<span>일 완수!</span></div>
+                <div class="mp-achieve-sub">벌써 3분의 1을 해냈어요 🎉</div>
+              </div>
+              <div class="mp-achieve-emoji">🍀</div>
+            </div>
+
+            <!-- 프로그레스 바 + 긍정 레이블 -->
+            <div class="mp-progress-label-row">
+              <span class="mp-progress-label-pos">33일 완수</span>
+              <span class="mp-progress-label-rem">67일 남음</span>
+            </div>
+            <div class="mp-progress-wrap">
+              <div class="mp-progress-fill"></div>
+            </div>
+
+            <div class="mp-pt-row">
+              <span class="mp-pt-label">누적 포인트</span>
+              <span class="mp-pt-val">240<span class="mp-pt-unit">P</span></span>
+            </div>
+          </div>
+
+          <!-- AI 말투 -->
+          <div class="mp-section-card">
+            <div class="mp-sc-row">
+              <div class="mp-sc-label">🤖 AI 말투 설정</div>
+            </div>
+            <div class="mp-toggle-grp">
+              <div class="mp-toggle-btn on">● 제안형</div>
+              <div class="mp-toggle-btn">○ 대화형</div>
+            </div>
+          </div>
+
+          <!-- 메뉴 -->
+          <div class="mp-menu-card">
+            <div class="mp-menu-item">
+              <div class="mp-menu-left"><span>🎨</span> 스탬프 꾸미기</div>
+              <span class="mp-arrow">›</span>
+            </div>
+            <div class="mp-menu-item">
+              <div class="mp-menu-left"><span>💰</span> 포인트 내역</div>
+              <span class="mp-arrow">›</span>
+            </div>
+            <div class="mp-menu-item">
+              <div class="mp-menu-left"><span>🔔</span> 알림 설정</div>
+              <span class="mp-arrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item"><span class="nav-ico">📔</span><div class="nav-dot h"></div></div>
+          <div class="nav-item"><span class="nav-ico">🏠</span><div class="nav-dot h"></div></div>
+          <div class="nav-item"><span class="nav-ico active">👤</span><div class="nav-dot"></div></div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt"><strong>"벌써 33일 완수!"</strong> — 남은 일수 대신 이미 이룬 것을 헤드라인으로. ShallWe 알림 로직("이미 한 것에 집중")과 일치</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt">프로그레스 바 상단 레이블 <strong>"33일 완수"</strong>(초록·왼쪽) + <strong>"67일 남음"</strong>(회색·오른쪽) — 완료가 먼저 보임</div>
+        </div>
+        <div class="note">
+          <div class="dot dot-g"></div>
+          <div class="note-txt">성취 배너(그라데이션 박스)로 시각적 무게감을 "달성"에 집중 → 자책 없이 지속 동기 제공</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 원칙 요약 -->
+  <div class="principle-box">
+    <h3>이번 리디자인의 핵심 원칙</h3>
+    <div class="pr-row">
+      <div class="pr-item">
+        <div class="pr-label">Case 1 · 좋은 UI</div>
+        <div class="pr-title">정보 그룹화 + 타이포 위계</div>
+        <div class="pr-desc">섹션 레이블로 정보를 그룹화하고, Bold→Regular→Light 위계로 인지부하를 낮췄다. 알림 설정 화면에서 잘 구현됨.</div>
+      </div>
+      <div class="pr-item">
+        <div class="pr-label">Case 2 · 아쉬운 UI</div>
+        <div class="pr-title">부정적 프레이밍 문제</div>
+        <div class="pr-desc">"D-67 · 완수 33%"는 남은 것·부족한 것을 강조해 무압박 UX 철학과 충돌. UI 카피와 서비스 철학은 반드시 일치해야 한다.</div>
+      </div>
+      <div class="pr-item">
+        <div class="pr-label">개선안</div>
+        <div class="pr-title">성취 중심 재프레이밍</div>
+        <div class="pr-desc">"벌써 33일!"로 같은 정보를 달리 표현. ShallWe AI 알림 로직("이미 한 것에 집중")을 UI 레벨에서 일관되게 구현.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>ShallWe</span> · UXIM 15기 · 레디액션 팀 · 5주차 UI 리디자인 과제
+</div>
+
+</body>
+</html>
